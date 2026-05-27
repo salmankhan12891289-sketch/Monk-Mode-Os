@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MONK MODE OS — 30 Din. Ek Naya Tu.</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --fire:#FF3A00;
+  --ember:#FF7A00;
+  --gold:#FFC200;
+  --cream:#F2EBD9;
+  --muted:#8A7F6E;
+  --ink:#0D0B08;
+  --ink2:#161209;
+  --ink3:#1F1810;
+  --border:rgba(255,90,0,0.18);
+  --glow:rgba(255,58,0,0.12);
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  background:var(--ink);
+  color:var(--cream);
+  font-family:'Oswald',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+  cursor:default;
+}
+
+/* ── SCANLINE TEXTURE ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events:none;z-index:999;
+}
+
+/* ── AMBIENT GLOW ── */
+.ambient{
+  position:fixed;
+  width:600px;height:600px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,58,0,0.07) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+  top:-100px;left:-100px;
+  animation:ambientDrift 12s ease-in-out infinite alternate;
+}
+@keyframes ambientDrift{
+  from{transform:translate(0,0)}
+  to{transform:translate(80px,120px)}
+}
+
+.wrap{position:relative;z-index:1;max-width:460px;margin:0 auto}
+
+/* ════════════════════════════
+   SECTION 1 — HERO
+════════════════════════════ */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:60px 28px 48px;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--fire),var(--ember),transparent);
+}
+
+/* BIG BACKGROUND TEXT */
+.hero-bg-text{
+  position:absolute;
+  right:-20px;top:50%;
+  transform:translateY(-50%);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(120px,35vw,180px);
+  line-height:1;
+  color:rgba(255,58,0,0.03);
+  letter-spacing:-0.02em;
+  pointer-events:none;
+  user-select:none;
+  white-space:nowrap;
+}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:10px;font-weight:500;
+  letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--ember);
+  margin-bottom:28px;
+  opacity:0;animation:riseIn 0.7s 0.1s ease forwards;
+}
+.eyebrow-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--fire);
+  animation:blinkDot 2s ease infinite;
+}
+@keyframes blinkDot{0%,100%{opacity:1}50%{opacity:0.2}}
+
+.hero-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(72px,22vw,96px);
+  line-height:0.85;
+  letter-spacing:0.01em;
+  margin-bottom:20px;
+  opacity:0;animation:riseIn 0.8s 0.2s ease forwards;
+}
+.ht-1{color:var(--cream);display:block}
+.ht-2{
+  display:block;
+  -webkit-text-stroke:1.5px var(--fire);
+  color:transparent;
+  text-shadow:0 0 40px rgba(255,58,0,0.15);
+}
+.ht-3{color:var(--fire);display:block}
+
+.hero-rule{
+  width:0;height:2px;
+  background:linear-gradient(90deg,var(--fire),var(--ember),transparent);
+  margin-bottom:24px;
+  animation:ruleExpand 0.9s 0.4s ease forwards;
+}
+@keyframes ruleExpand{to{width:64px}}
+
+.hero-tagline{
+  font-family:'Crimson Pro',serif;
+  font-style:italic;
+  font-size:19px;
+  line-height:1.5;
+  color:rgba(242,235,217,0.75);
+  margin-bottom:32px;
+  opacity:0;animation:riseIn 0.7s 0.5s ease forwards;
+}
+.hero-tagline strong{color:var(--cream);font-style:normal}
+
+.hero-proof{
+  display:flex;align-items:center;gap:16px;
+  opacity:0;animation:riseIn 0.7s 0.6s ease forwards;
+}
+.proof-avatars{display:flex}
+.proof-avatar{
+  width:30px;height:30px;border-radius:50%;
+  border:2px solid var(--ink);
+  background:var(--ink3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;
+  margin-left:-8px;
+}
+.proof-avatar:first-child{margin-left:0}
+.proof-text{
+  font-size:12px;color:var(--muted);
+  letter-spacing:0.05em;
+  line-height:1.4;
+}
+.proof-text strong{color:var(--ember);font-weight:500}
+
+/* ════════════════════════════
+   PAIN SECTION
+════════════════════════════ */
+.pain{
+  padding:52px 28px;
+  background:var(--ink2);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.pain-heading{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:36px;
+  color:var(--cream);
+  letter-spacing:0.03em;
+  margin-bottom:6px;
+}
+.pain-heading span{color:var(--fire)}
+
+.pain-sub{
+  font-family:'Crimson Pro',serif;
+  font-size:16px;
+  color:var(--muted);
+  margin-bottom:28px;
+  font-style:italic;
+}
+
+.pain-list{
+  list-style:none;
+  display:flex;flex-direction:column;gap:10px;
+  margin-bottom:28px;
+}
+.pain-item{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:14px 16px;
+  background:rgba(255,58,0,0.04);
+  border-left:2px solid rgba(255,58,0,0.25);
+}
+.pain-icon{font-size:16px;margin-top:1px;flex-shrink:0}
+.pain-text{
+  font-size:14px;
+  line-height:1.5;
+  color:rgba(242,235,217,0.7);
+}
+.pain-text strong{color:var(--cream);font-weight:500}
+
+.pain-closer{
+  font-family:'Crimson Pro',serif;
+  font-size:18px;
+  font-style:italic;
+  color:var(--cream);
+  border-top:1px solid var(--border);
+  padding-top:20px;
+  line-height:1.55;
+}
+.pain-closer em{font-style:normal;color:var(--fire)}
+
+/* ════════════════════════════
+   WHAT IS IT
+════════════════════════════ */
+.what{padding:52px 28px}
+
+.sec-label{
+  font-size:10px;font-weight:500;
+  letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--ember);
+  margin-bottom:12px;display:block;
+}
+
+.what-heading{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:40px;
+  line-height:0.95;
+  margin-bottom:20px;
+}
+.what-heading span{color:var(--fire)}
+
+.what-body{
+  font-family:'Crimson Pro',serif;
+  font-size:17px;
+  line-height:1.7;
+  color:rgba(242,235,217,0.8);
+  margin-bottom:28px;
+}
+.what-body strong{color:var(--cream)}
+
+/* COMPARISON TABLE */
+.compare{
+  border:1px solid var(--border);
+  overflow:hidden;
+  margin-top:8px;
+}
+.compare-header{
+  display:grid;grid-template-columns:1fr 1fr;
+  background:var(--ink3);
+}
+.ch-cell{
+  padding:10px 14px;
+  font-size:10px;font-weight:600;
+  letter-spacing:0.2em;text-transform:uppercase;
+}
+.ch-cell.bad{color:rgba(242,235,217,0.3);border-right:1px solid var(--border)}
+.ch-cell.good{color:var(--ember)}
+
+.compare-row{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-top:1px solid rgba(255,90,0,0.08);
+}
+.cr-cell{
+  padding:12px 14px;
+  font-size:13px;
+  line-height:1.4;
+  color:rgba(242,235,217,0.5);
+}
+.cr-cell.bad{
+  border-right:1px solid rgba(255,90,0,0.08);
+  text-decoration:line-through;
+  text-decoration-color:rgba(255,58,0,0.3);
+}
+.cr-cell.good{color:rgba(242,235,217,0.9)}
+.cr-cell.good::before{
+  content:'✓ ';
+  color:var(--ember);
+  font-weight:600;
+}
+
+/* ════════════════════════════
+   FEATURES
+════════════════════════════ */
+.features{
+  padding:52px 28px;
+  background:var(--ink2);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.features-heading{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:40px;
+  line-height:0.95;
+  margin-bottom:8px;
+}
+.features-heading span{color:var(--fire)}
+
+.features-sub{
+  font-family:'Crimson Pro',serif;
+  font-size:15px;
+  color:var(--muted);
+  font-style:italic;
+  margin-bottom:28px;
+}
+
+.feat-grid{
+  display:flex;flex-direction:column;gap:3px;
+}
+
+.feat{
+  padding:20px 18px;
+  background:var(--ink);
+  border:1px solid rgba(255,90,0,0.1);
+  position:relative;
+  overflow:hidden;
+  transition:border-color 0.2s;
+}
+.feat:hover{border-color:rgba(255,90,0,0.35)}
+
+.feat::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;
+  width:3px;height:100%;
+  background:linear-gradient(180deg,var(--fire),var(--ember));
+  opacity:0;
+  transition:opacity 0.2s;
+}
+.feat:hover::before{opacity:1}
+
+.feat-top{
+  display:flex;align-items:flex-start;
+  gap:14px;margin-bottom:8px;
+}
+.feat-icon{
+  font-size:22px;flex-shrink:0;
+  width:36px;height:36px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,58,0,0.08);
+}
+.feat-name{
+  font-family:'Oswald',sans-serif;
+  font-weight:500;
+  font-size:16px;
+  letter-spacing:0.05em;
+  color:var(--cream);
+  line-height:1.2;
+  margin-bottom:4px;
+}
+.feat-tag{
+  font-size:10px;font-weight:500;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--ember);
+  opacity:0.7;
+}
+.feat-desc{
+  font-family:'Crimson Pro',serif;
+  font-size:14px;
+  line-height:1.55;
+  color:rgba(242,235,217,0.6);
+  padding-left:50px;
+}
+.feat-desc strong{color:rgba(242,235,217,0.9)}
+
+/* ════════════════════════════
+   SYSTEM DEMO
+════════════════════════════ */
+.demo{padding:52px 28px}
+
+.demo-heading{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:38px;
+  margin-bottom:8px;
+}
+.demo-heading span{color:var(--fire)}
+
+.demo-sub{
+  font-family:'Crimson Pro',serif;
+  font-size:15px;color:var(--muted);
+  font-style:italic;margin-bottom:28px;
+}
+
+/* FAKE PHONE MOCKUP */
+.phone-wrap{
+  display:flex;justify-content:center;
+  margin-bottom:28px;
+}
+.phone{
+  width:100%;max-width:320px;
+  background:var(--ink2);
+  border:1px solid var(--border);
+  border-radius:4px;
+  overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(255,90,0,0.08);
+}
+.phone-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;
+  background:var(--ink3);
+  border-bottom:1px solid var(--border);
+}
+.phone-title-bar{
+  font-size:11px;letter-spacing:0.1em;
+  color:var(--muted);
+}
+.phone-score{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:16px;
+  color:var(--ember);
+}
+.phone-content{padding:16px 14px}
+
+.phone-day{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28px;
+  color:var(--cream);
+  margin-bottom:4px;
+  display:flex;align-items:center;gap:10px;
+}
+.phone-rank{
+  font-size:11px;font-weight:500;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--ember);
+  margin-bottom:14px;
+}
+
+.phone-section-label{
+  font-size:9px;font-weight:600;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--fire);
+  margin-bottom:8px;padding-bottom:6px;
+  border-bottom:1px solid rgba(255,58,0,0.15);
+}
+
+.phone-checks{
+  list-style:none;
+  display:flex;flex-direction:column;gap:6px;
+  margin-bottom:14px;
+}
+.pc-item{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;
+  color:rgba(242,235,217,0.7);
+}
+.pc-box{
+  width:14px;height:14px;
+  border:1.5px solid;
+  border-radius:2px;
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;
+}
+.pc-box.done{
+  border-color:var(--ember);
+  background:rgba(255,122,0,0.15);
+  color:var(--ember);
+}
+.pc-box.undone{border-color:rgba(242,235,217,0.2)}
+
+.phone-damage-label{
+  font-size:9px;font-weight:600;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:rgba(255,58,0,0.6);
+  margin-bottom:8px;padding-bottom:6px;
+  border-bottom:1px solid rgba(255,58,0,0.1);
+}
+.phone-damage{
+  list-style:none;
+  display:flex;flex-direction:column;gap:5px;
+}
+.pd-item{
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:11px;
+  color:rgba(242,235,217,0.4);
+}
+.pd-penalty{
+  font-family:'Oswald',sans-serif;
+  font-size:11px;font-weight:500;
+  color:rgba(255,58,0,0.5);
+}
+
+/* SCORE METER */
+.score-meter{
+  margin-top:28px;
+  padding:20px;
+  background:var(--ink2);
+  border:1px solid var(--border);
+}
+.sm-top{
+  display:flex;justify-content:space-between;
+  align-items:baseline;margin-bottom:12px;
+}
+.sm-label{
+  font-size:10px;font-weight:600;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--muted);
+}
+.sm-score{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:42px;color:var(--cream);line-height:1;
+}
+.sm-rank{
+  font-size:12px;font-weight:500;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--ember);
+}
+.sm-bar-track{
+  height:6px;
+  background:rgba(255,255,255,0.06);
+  border-radius:3px;overflow:hidden;
+  margin-bottom:8px;
+}
+.sm-bar-fill{
+  height:100%;width:82%;
+  background:linear-gradient(90deg,var(--fire),var(--ember),var(--gold));
+  border-radius:3px;
+  animation:fillBar 1.5s 0.5s ease both;
+}
+@keyframes fillBar{from{width:0}}
+.sm-ticks{
+  display:flex;justify-content:space-between;
+  font-size:9px;letter-spacing:0.08em;
+  color:rgba(242,235,217,0.25);
+}
+
+/* ════════════════════════════
+   WHY DIFFERENT
+════════════════════════════ */
+.diff{
+  padding:52px 28px;
+  background:var(--ink2);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.diff-heading{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:38px;line-height:0.95;
+  margin-bottom:8px;
+}
+.diff-heading span{color:var(--fire)}
+
+.diff-sub{
+  font-family:'Crimson Pro',serif;
+  font-size:15px;color:var(--muted);
+  font-style:italic;margin-bottom:28px;
+}
+
+.diff-points{
+  display:flex;flex-direction:column;gap:20px;
+}
+.diff-point{
+  display:flex;gap:16px;
+  padding-bottom:20px;
+  border-bottom:1px solid rgba(255,90,0,0.07);
+}
+.diff-point:last-child{border-bottom:none;padding-bottom:0}
+.dp-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:48px;line-height:1;
+  color:rgba(255,58,0,0.12);
+  flex-shrink:0;width:40px;
+}
+.dp-body{}
+.dp-title{
+  font-family:'Oswald',sans-serif;
+  font-weight:500;font-size:16px;
+  letter-spacing:0.05em;
+  color:var(--cream);margin-bottom:6px;
+}
+.dp-title span{color:var(--ember)}
+.dp-desc{
+  font-family:'Crimson Pro',serif;
+  font-size:14px;line-height:1.6;
+  color:rgba(242,235,217,0.6);
+}
+.dp-desc strong{color:rgba(242,235,217,0.85)}
+
+/* ════════════════════════════
+   TESTIMONIALS
+════════════════════════════ */
+.testi{padding:52px 28px}
+
+.testi-heading{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:38px;line-height:0.95;
+  margin-bottom:8px;
+}
+.testi-heading span{color:var(--fire)}
+
+.testi-sub{
+  font-family:'Crimson Pro',serif;
+  font-size:15px;color:var(--muted);
+  font-style:italic;margin-bottom:28px;
+}
+
+.testi-list{
+  display:flex;flex-direction:column;gap:3px;
+}
+.testi-card{
+  background:var(--ink2);
+  border:1px solid rgba(255,90,0,0.1);
+  padding:20px 18px;
+  position:relative;overflow:hidden;
+}
+.testi-card::before{
+  content:'"';
+  position:absolute;
+  top:-8px;right:14px;
+  font-family:'Crimson Pro',serif;
+  font-size:80px;
+  color:rgba(255,58,0,0.06);
+  line-height:1;
+  pointer-events:none;
+}
+.tc-stars{
+  color:var(--gold);font-size:11px;
+  letter-spacing:3px;margin-bottom:10px;
+}
+.tc-text{
+  font-family:'Crimson Pro',serif;
+  font-size:15px;line-height:1.6;
+  color:rgba(242,235,217,0.8);
+  margin-bottom:14px;
+}
+.tc-text em{
+  font-style:italic;color:var(--cream);
+}
+.tc-meta{
+  display:flex;align-items:center;gap:10px;
+}
+.tc-avatar{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--ink3);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;
+}
+.tc-name{
+  font-size:11px;font-weight:500;
+  letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);
+}
+.tc-name span{color:var(--ember)}
+
+/* ════════════════════════════
+   CTA SECTION
+════════════════════════════ */
+.cta{
+  padding:52px 28px 60px;
+  position:relative;overflow:hidden;
+}
+.cta::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--fire),var(--ember),transparent);
+}
+
+.cta-scarcity{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,58,0,0.08);
+  border:1px solid rgba(255,58,0,0.25);
+  padding:6px 14px;
+  font-size:10px;font-weight:500;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--fire);
+  margin-bottom:24px;
+}
+.cta-scarcity::before{
+  content:'';width:6px;height:6px;
+  border-radius:50%;background:var(--fire);
+  animation:blinkDot 1.5s ease infinite;
+}
+
+.cta-heading{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:48px;line-height:0.9;
+  margin-bottom:8px;
+}
+.cta-heading span{color:var(--fire)}
+
+.cta-body{
+  font-family:'Crimson Pro',serif;
+  font-size:17px;line-height:1.65;
+  color:rgba(242,235,217,0.7);
+  margin-bottom:36px;
+}
+.cta-body strong{color:var(--cream)}
+
+/* PRICE BOX */
+.price-box{
+  background:var(--ink2);
+  border:1px solid var(--border);
+  padding:28px 24px;
+  margin-bottom:20px;
+  position:relative;
+  overflow:hidden;
+}
+.price-box::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--fire),var(--ember),var(--gold));
+}
+
+.pb-row{
+  display:flex;align-items:baseline;
+  gap:14px;margin-bottom:4px;
+}
+.pb-price{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:72px;color:var(--cream);line-height:1;
+}
+.pb-price sup{font-size:28px;vertical-align:super;color:var(--ember)}
+.pb-old{
+  font-size:18px;color:rgba(242,235,217,0.25);
+  text-decoration:line-through;
+  font-family:'Oswald',sans-serif;
+}
+.pb-save{
+  font-size:11px;font-weight:500;
+  letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--ember);margin-bottom:20px;
+}
+
+.pb-includes{
+  list-style:none;
+  display:flex;flex-direction:column;gap:7px;
+  margin-bottom:0;
+}
+.pbi-item{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;
+  color:rgba(242,235,217,0.7);
+}
+.pbi-check{color:var(--ember);font-size:12px}
+
+/* BUY BUTTON */
+.buy-btn{
+  display:block;width:100%;
+  padding:18px 24px;
+  background:linear-gradient(135deg,var(--fire) 0%,var(--ember) 100%);
+  color:var(--cream);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:24px;letter-spacing:0.08em;
+  text-align:center;text-decoration:none;
+  border:none;cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:transform 0.15s,box-shadow 0.15s;
+  box-shadow:0 8px 40px rgba(255,58,0,0.3);
+  margin-top:20px;
+}
+.buy-btn::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.08) 0%,transparent 60%);
+}
+.buy-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 50px rgba(255,58,0,0.45);
+}
+.buy-btn:active{transform:translateY(0)}
+
+.btn-sub{
+  text-align:center;
+  font-family:'Crimson Pro',serif;
+  font-size:12px;
+  color:var(--muted);
+  margin-top:10px;
+  font-style:italic;
+}
+
+/* GUARANTEE */
+.guarantee{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:16px;
+  background:rgba(255,194,0,0.04);
+  border:1px solid rgba(255,194,0,0.12);
+  margin-top:20px;
+}
+.g-icon{font-size:22px;flex-shrink:0}
+.g-text{
+  font-family:'Crimson Pro',serif;
+  font-size:13px;line-height:1.5;
+  color:rgba(242,235,217,0.6);
+}
+.g-text strong{color:var(--gold)}
+
+/* FINAL MANIFESTO */
+.manifesto{
+  padding:52px 28px;
+  text-align:center;
+  border-top:1px solid var(--border);
+}
+.mani-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:36px;
+  color:rgba(242,235,217,0.15);
+  letter-spacing:0.05em;
+  margin-bottom:20px;
+}
+.mani-quote{
+  font-family:'Crimson Pro',serif;
+  font-size:20px;
+  font-style:italic;
+  line-height:1.5;
+  color:rgba(242,235,217,0.5);
+  margin-bottom:8px;
+}
+.mani-quote em{font-style:normal;color:rgba(255,58,0,0.6)}
+.mani-sig{
+  font-size:10px;letter-spacing:0.3em;text-transform:uppercase;
+  color:rgba(242,235,217,0.15);
+  margin-top:20px;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes riseIn{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* SCROLL REVEAL */
+.reveal{
+  opacity:0;transform:translateY(24px);
+  transition:opacity 0.7s ease,transform 0.7s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--ink)}
+::-webkit-scrollbar-thumb{background:var(--fire)}
+
+/* ── STICKY BOTTOM BAR ── */
+.sticky-bar{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  z-index:9999;
+  background:rgba(13,11,8,0.92);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-top:1px solid rgba(255,58,0,0.3);
+  padding:10px 16px 14px;
+  transform:translateY(100%);
+  transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  box-shadow:0 -8px 40px rgba(0,0,0,0.6);
+}
+.sticky-bar.show{transform:translateY(0)}
+
+.sticky-inner{
+  max-width:460px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.sticky-price-wrap{
+  flex-shrink:0;
+  text-align:center;
+}
+.sticky-price{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:28px;
+  color:var(--cream);
+  line-height:1;
+  display:block;
+}
+.sticky-price sup{font-size:14px;color:var(--ember);vertical-align:super}
+.sticky-old{
+  font-size:10px;
+  color:rgba(242,235,217,0.3);
+  text-decoration:line-through;
+  letter-spacing:0.05em;
+  display:block;
+  margin-top:1px;
+}
+.sticky-divider{
+  width:1px;height:36px;
+  background:rgba(255,90,0,0.2);
+  flex-shrink:0;
+}
+.sticky-btn{
+  flex:1;
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;
+  padding:13px 16px;
+  background:linear-gradient(135deg,var(--fire),var(--ember));
+  color:var(--cream);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:18px;
+  letter-spacing:0.06em;
+  text-decoration:none;
+  border-radius:2px;
+  box-shadow:0 4px 20px rgba(255,58,0,0.35);
+  transition:transform 0.15s,box-shadow 0.15s;
+  position:relative;overflow:hidden;
+}
+.sticky-btn::before{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.1) 0%,transparent 60%);
+}
+.sticky-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 28px rgba(255,58,0,0.5);
+}
+.sticky-btn:active{transform:translateY(0)}
+.sticky-btn-icon{font-size:16px}
+
+/* pulse ring on button */
+.sticky-btn::after{
+  content:'';
+  position:absolute;inset:0;
+  border:2px solid rgba(255,122,0,0.4);
+  border-radius:2px;
+  animation:ringPulse 2.5s ease infinite;
+}
+@keyframes ringPulse{
+  0%{opacity:1;transform:scale(1)}
+  60%{opacity:0;transform:scale(1.05)}
+  100%{opacity:0;transform:scale(1.05)}
+}
+
+/* Add padding to body so sticky bar doesn't cover content */
+body{padding-bottom:80px}
+</style>
+</head>
+<body>
+
+<div class="ambient"></div>
+
+<div class="wrap">
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg-text">OS</div>
+
+  <div class="eyebrow">
+    <span class="eyebrow-dot"></span>
+    Notion Template · Digital Discipline System
+  </div>
+
+  <h1 class="hero-title">
+    <span class="ht-1">MONK</span>
+    <span class="ht-2">MODE</span>
+    <span class="ht-3">OS</span>
+  </h1>
+
+  <div class="hero-rule"></div>
+
+  <p class="hero-tagline">
+    Yeh ek <strong>habit tracker nahi hai.</strong><br>
+    Yeh tera <strong>Digital Self-Reconstruction System</strong> hai —<br>
+    jo tujhe distracted insaan se<br>
+    <strong>disciplined warrior</strong> banaata hai.
+  </p>
+
+  <div class="hero-proof">
+    <div class="proof-avatars">
+      <div class="proof-avatar">🧠</div>
+      <div class="proof-avatar">⚡</div>
+      <div class="proof-avatar">🦁</div>
+      <div class="proof-avatar">👑</div>
+    </div>
+    <div class="proof-text">
+      <strong>30 Din. 7 Habits. 1 New Identity.</strong><br>
+      Ek decision jo sab badal deta hai.
+    </div>
+  </div>
+</section>
+
+<!-- ══ PAIN ══ -->
+<section class="pain reveal">
+  <h2 class="pain-heading">Kya <span>Yeh Teri</span><br>Kahani Hai?</h2>
+  <p class="pain-sub">Agar haan — toh tu sahi jagah aaya hai.</p>
+
+  <ul class="pain-list">
+    <li class="pain-item">
+      <span class="pain-icon">📱</span>
+      <span class="pain-text">Subah uthte hi <strong>Reels scroll</strong> karna shuru — aur ghante barbaad</span>
+    </li>
+    <li class="pain-item">
+      <span class="pain-icon">💭</span>
+      <span class="pain-text"><strong>Roz resolve karta hai</strong> — "kal se sab theek" — lekin kal kabhi aata nahi</span>
+    </li>
+    <li class="pain-item">
+      <span class="pain-icon">😶</span>
+      <span class="pain-text">Khud se <strong>disappointed</strong> hota hai — neend se pehle sochta hai "aaj bhi waste kiya"</span>
+    </li>
+    <li class="pain-item">
+      <span class="pain-icon">🔞</span>
+      <span class="pain-text"><strong>NoFap try kiya</strong> — 3 din, 5 din — phir toot gaya. Guilt, shame, repeat.</span>
+    </li>
+    <li class="pain-item">
+      <span class="pain-icon">📉</span>
+      <span class="pain-text">Gym, reading, meditation — <strong>shuru sab kiya</strong> — consistently koi nahi hua</span>
+    </li>
+  </ul>
+
+  <p class="pain-closer">
+    Bhai, yeh teri <em>kamzori nahi</em> — yeh tera system hai.<br>
+    <em>Ghalat system = galat results.</em><br>
+    Aaj system badlo. Kal results badlenge.
+  </p>
+</section>
+
+<!-- ══ WHAT IS IT ══ -->
+<section class="what reveal">
+  <span class="sec-label">⚔️ Ye Kya Hai Exactly</span>
+  <h2 class="what-heading">Ek <span>Operating</span><br>System —<br>Tere Liye</h2>
+
+  <p class="what-body">
+    <strong>Monk Mode OS</strong> ek complete 30-din ka Notion-based system hai jo tujhe ek distracted, dopamine-addicted insaan se ek focused, disciplined warrior banata hai.<br><br>
+    Har roz ek <strong>Battle Card</strong> milta hai — alag message, alag motivation, alag challenge. Score calculate hota hai automatically. Har galti ka <strong>penalty</strong> hai, har jeet ka <strong>reward</strong>.<br><br>
+    Yeh sirf kaam nahi karta — <strong>yeh teri identity badal deta hai.</strong>
+  </p>
+
+  <div class="compare">
+    <div class="compare-header">
+      <div class="ch-cell bad">❌ Normal Tracker</div>
+      <div class="ch-cell good">⚡ Monk Mode OS</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-cell bad">Tasks track karta hai</div>
+      <div class="cr-cell good">Identity track karta hai</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-cell bad">Boring checkboxes</div>
+      <div class="cr-cell good">Battle Cards — app jaisi feel</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-cell bad">Koi consequence nahi</div>
+      <div class="cr-cell good">Damage penalty system — -50 tak</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-cell bad">Generic motivation</div>
+      <div class="cr-cell good">Har din alag personal message</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-cell bad">Jhooth bolna aasaan</div>
+      <div class="cr-cell good">Honesty force hoti hai — by design</div>
+    </div>
+    <div class="compare-row">
+      <div class="cr-cell bad">Desktop optimized</div>
+      <div class="cr-cell good">100% mobile — one thumb se use</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURES ══ -->
+<section class="features reveal">
+  <span class="sec-label">📦 Andar Kya Milega</span>
+  <h2 class="features-heading">Har <span>Cheez</span><br>Ready Hai</h2>
+  <p class="features-sub">Ek bhi setup nahi karna — bas duplicate karo aur shuru karo.</p>
+
+  <div class="feat-grid">
+
+    <div class="feat">
+      <div class="feat-top">
+        <div class="feat-icon">📅</div>
+        <div>
+          <div class="feat-name">30 Daily Battle Cards</div>
+          <div class="feat-tag">Day 1 se 30 tak — Ready</div>
+        </div>
+      </div>
+      <p class="feat-desc">
+        Har din ka <strong>alag content</strong> — alag quote, alag message, alag challenge. Day 7 = "ONE WEEK STRONG", Day 15 = "HALFWAY THERE", Day 30 = "MONSTER UNLOCKED." <strong>Emotional journey design kiya gaya hai.</strong>
+      </p>
+    </div>
+
+    <div class="feat">
+      <div class="feat-top">
+        <div class="feat-icon">⚡</div>
+        <div>
+          <div class="feat-name">Auto Monk Score</div>
+          <div class="feat-tag">Formula-Based · 0 to 100</div>
+        </div>
+      </div>
+      <p class="feat-desc">
+        Checkboxes tick karo — score <strong>automatically calculate</strong> hoga. Deep Work = +20, Workout = +20, No Social Media = +20. Koi manual calculation nahi. <strong>Real-time accountability.</strong>
+      </p>
+    </div>
+
+    <div class="feat">
+      <div class="feat-top">
+        <div class="feat-icon">💀</div>
+        <div>
+          <div class="feat-name">Damage Penalty System</div>
+          <div class="feat-tag">Industry First · Honest Force</div>
+        </div>
+      </div>
+      <p class="feat-desc">
+        <strong>Koi bhi tracker yeh nahi karta.</strong> Reels dekhi = -15 pts. Random scrolling = -10. Late night phone = -10. NoFap toda = <strong>-50 pts.</strong> Yeh system tujhe <em>khud se jhooth bolne nahi deta.</em>
+      </p>
+    </div>
+
+    <div class="feat">
+      <div class="feat-top">
+        <div class="feat-icon">🚨</div>
+        <div>
+          <div class="feat-name">Urge Control Emergency Section</div>
+          <div class="feat-tag">Har Card Mein · 5-Step Plan</div>
+        </div>
+      </div>
+      <p class="feat-desc">
+        Urge aaye — tap karo — <strong>5 step plan milega immediately.</strong> Push-ups, cold water, fresh air — science-backed urge neutralizer. <strong>3-7 minute mein urge khatam.</strong> Kisi tracker mein yeh nahi hai.
+      </p>
+    </div>
+
+    <div class="feat">
+      <div class="feat-top">
+        <div class="feat-icon">🧠</div>
+        <div>
+          <div class="feat-name">Identity-Based Language</div>
+          <div class="feat-tag">Psychology · Dopamine Design</div>
+        </div>
+      </div>
+      <p class="feat-desc">
+        "Workout done" nahi — <strong>"Physical discipline secured."</strong> "No reels" nahi — <strong>"Mind protected."</strong> Yeh language teri <em>psychology rewire</em> karti hai. Tu task complete nahi karta — <strong>tu apni identity jeeta hai.</strong>
+      </p>
+    </div>
+
+    <div class="feat">
+      <div class="feat-top">
+        <div class="feat-icon">👑</div>
+        <div>
+          <div class="feat-name">Rank System — 💀 to 👑</div>
+          <div class="feat-tag">Score-Based · Emotional Hook</div>
+        </div>
+      </div>
+      <p class="feat-desc">
+        Score ke basis pe rank milti hai — <strong>💀 LOST se 👑 MONSTER tak.</strong> Humans love ranking systems. Yeh ek <strong>dopamine loop create karta hai</strong> — productive kaam pe. Reels ki jagah — <em>rank upgrade pe addiction.</em>
+      </p>
+    </div>
+
+    <div class="feat">
+      <div class="feat-top">
+        <div class="feat-icon">🌙</div>
+        <div>
+          <div class="feat-name">Good Night + Next Day Setup</div>
+          <div class="feat-tag">Har Card ke End Mein</div>
+        </div>
+      </div>
+      <p class="feat-desc">
+        Har card raat ko <strong>agle din ke liye emotionally prepare</strong> karta hai. "So ja warrior — kal ki ladai kal hogi." Yeh <em>routine ko automatic</em> banata hai. <strong>Kal ka card khud yaad dilata hai.</strong>
+      </p>
+    </div>
+
+    <div class="feat">
+      <div class="feat-top">
+        <div class="feat-icon">📱</div>
+        <div>
+          <div class="feat-name">Mobile-First Design</div>
+          <div class="feat-tag">One Thumb · No Clutter</div>
+        </div>
+      </div>
+      <p class="feat-desc">
+        <strong>Sab kuch vertical.</strong> Bade checkboxes. Koi unnecessary complexity nahi. <strong>Ek haath se poora system use karo.</strong> Dark mode ready. Gallery view — cards like app tiles. <em>Phone mein ek secret OS jaisa feel.</em>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ DEMO ══ -->
+<section class="demo reveal">
+  <span class="sec-label">👁️ System Preview</span>
+  <h2 class="demo-heading">Andar <span>Kaisa</span><br>Dikhta Hai</h2>
+  <p class="demo-sub">Har roz yahi dikhega — powerful, clean, actionable.</p>
+
+  <div class="phone-wrap">
+    <div class="phone">
+      <div class="phone-bar">
+        <span class="phone-title-bar">⚔️ Day 17 — Locked In 💪</span>
+        <span class="phone-score">⚡ 82</span>
+      </div>
+      <div class="phone-content">
+        <div class="phone-day">Day 17 <span>🔥</span></div>
+        <div class="phone-rank">🦁 WARRIOR · Locked In</div>
+
+        <div class="phone-section-label">✅ Discipline — Tick tab karo jab kiya ho</div>
+        <ul class="phone-checks">
+          <li class="pc-item">
+            <div class="pc-box done">✓</div>
+            🌅 Jaldi Utha — 6 AM se Pehle
+          </li>
+          <li class="pc-item">
+            <div class="pc-box done">✓</div>
+            📚 Deep Work — 2+ Ghante Bina Phone
+          </li>
+          <li class="pc-item">
+            <div class="pc-box done">✓</div>
+            💪 Workout — 20+ Min Paseena Aana Chahiye
+          </li>
+          <li class="pc-item">
+            <div class="pc-box undone"></div>
+            🧘 Meditation — Subah 10 Min Aankhein Band
+          </li>
+          <li class="pc-item">
+            <div class="pc-box done">✓</div>
+            📖 Reading — 15+ Pages Genuinely Padha
+          </li>
+          <li class="pc-item">
+            <div class="pc-box done">✓</div>
+            📵 No Social Media — Poora Din Bilkul Nahi
+          </li>
+        </ul>
+
+        <div class="phone-damage-label">☠️ Damage — Agar kiya toh honest tick karo</div>
+        <ul class="phone-damage">
+          <li class="pd-item">
+            <span>🔞 NoFap — Streak Nahi Todi</span>
+            <span class="pd-penalty">-50 pts</span>
+          </li>
+          <li class="pd-item">
+            <span>☠️ Reels Binge</span>
+            <span class="pd-penalty">-15 pts</span>
+          </li>
+          <li class="pd-item">
+            <span>🌙 Late Night Phone</span>
+            <span class="pd-penalty">-10 pts</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="score-meter">
+    <div class="sm-top">
+      <span class="sm-label">Monk Score</span>
+      <span class="sm-rank">🦁 WARRIOR</span>
+    </div>
+    <div class="sm-score">82</div>
+    <div class="sm-bar-track">
+      <div class="sm-bar-fill"></div>
+    </div>
+    <div class="sm-ticks">
+      <span>💀 0</span>
+      <span>😐 30</span>
+      <span>⚡ 50</span>
+      <span>🦁 70</span>
+      <span>👑 90</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHY DIFFERENT ══ -->
+<section class="diff reveal">
+  <span class="sec-label">🔥 Yeh Dusron Se Kyun Alag Hai</span>
+  <h2 class="diff-heading">5 Cheezein Jo<br><span>Kisi Tracker</span><br>Mein Nahi</h2>
+  <p class="diff-sub">Duniya mein hazaron habit trackers hain — yeh unme se nahi hai.</p>
+
+  <div class="diff-points">
+
+    <div class="diff-point reveal">
+      <div class="dp-num">01</div>
+      <div class="dp-body">
+        <div class="dp-title">Damage System — <span>Industry First</span></div>
+        <p class="dp-desc">Duniya ka pehla habit tracker jo <strong>penalty lagata hai galat kaam pe.</strong> Sirf achievements nahi — consequences bhi hain. Yeh tumhe honestly track karne pe force karta hai. Jhooth bolne ka option hi khatam ho jaata hai.</p>
+      </div>
+    </div>
+
+    <div class="diff-point reveal">
+      <div class="dp-num">02</div>
+      <div class="dp-body">
+        <div class="dp-title">Identity Language — <span>Psychology Shift</span></div>
+        <p class="dp-desc">Har checkbox pe likhha hai kya achieve hua — <strong>"Mental discipline secured", "Mind protected."</strong> Yeh language teri brain ko retrain karti hai. Tu task nahi karta — <strong>tu apna character prove karta hai.</strong></p>
+      </div>
+    </div>
+
+    <div class="diff-point reveal">
+      <div class="dp-num">03</div>
+      <div class="dp-body">
+        <div class="dp-title">30 Unique Daily Messages — <span>Emotional Journey</span></div>
+        <p class="dp-desc"><strong>Har din alag baat.</strong> Day 1 mein excitement, Day 7 mein celebration, Day 15 mein halfway motivation, Day 29 pe last battle cry. Koi repetition nahi. <strong>Yeh ek friend ki tarah baat karta hai — roz.</strong></p>
+      </div>
+    </div>
+
+    <div class="diff-point reveal">
+      <div class="dp-num">04</div>
+      <div class="dp-body">
+        <div class="dp-title">Urge Emergency Section — <span>Real-Time Help</span></div>
+        <p class="dp-desc">Jab urge aaye — tap karo — <strong>5 step plan milega turant.</strong> Science se liya gaya: movement + cold water + fresh air = urge neutralized. <strong>3-7 minute mein.</strong> Koi motivational poster nahi — actual action plan.</p>
+      </div>
+    </div>
+
+    <div class="diff-point reveal">
+      <div class="dp-num">05</div>
+      <div class="dp-body">
+        <div class="dp-title">Monk Score + Rank — <span>Dopamine Rewiring</span></div>
+        <p class="dp-desc">Score + rank system ek <strong>productive dopamine loop create karta hai.</strong> Tu reels ki jagah apni rank badhane ke liye kaam karta hai. <strong>💀 LOST se 👑 MONSTER tak — yeh journey addictive hai.</strong> Lekin productive tarike se.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="testi reveal">
+  <span class="sec-label">💬 Unke Words — Jo Use Kar Chuke Hain</span>
+  <h2 class="testi-heading">Real <span>Results,</span><br>Real Log</h2>
+  <p class="testi-sub">Numbers nahi — zindagi badli hai inki.</p>
+
+  <div class="testi-list">
+
+    <div class="testi-card">
+      <div class="tc-stars">★★★★★</div>
+      <p class="tc-text">"14 din mein meri neend fix ho gayi, gym consistent hua. Lekin sabse bada change — <em>khud se jhooth bolna band ho gaya.</em> Damage system ne force kiya honest rehne pe. Koi bhi tracker yeh nahi karta."</p>
+      <div class="tc-meta">
+        <div class="tc-avatar">🧠</div>
+        <span class="tc-name">Arjun S., 21 · <span>Delhi · Student</span></span>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="tc-stars">★★★★★</div>
+      <p class="tc-text">"21 din tak NoFap gaya — pehli baar zindagi mein. <em>-50 penalty ne literally rokaa ek raat.</em> Socha — '21 din barbaad karna hai?' Push-ups kiye, so gaya. Subah proud tha. Yeh system sach mein kaam karta hai."</p>
+      <div class="tc-meta">
+        <div class="tc-avatar">⚡</div>
+        <span class="tc-name">Rahul K., 19 · <span>Mumbai · Gym Bro</span></span>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="tc-stars">★★★★★</div>
+      <p class="tc-text">"Har raat card kholta hoon — score dekhta hoon — rank check karta hoon. <em>Reels ki jagah yeh dekhna addictive ho gaya.</em> Mujhe pata bhi nahi chala kab 30 din poore ho gaye. Identity literally badal gayi."</p>
+      <div class="tc-meta">
+        <div class="tc-avatar">🦁</div>
+        <span class="tc-name">Vikram T., 24 · <span>Pune · Creator</span></span>
+      </div>
+    </div>
+
+    <div class="testi-card">
+      <div class="tc-stars">★★★★★</div>
+      <p class="tc-text">"Pehle socha ₹199 mein kya hoga. Phir dekha — <em>30 din ka poora system, formulas, har din ka message, urge control.</em> Bhai yeh sab manually banane mein mahine lagte. Worth it 10 guna."</p>
+      <div class="tc-meta">
+        <div class="tc-avatar">👑</div>
+        <span class="tc-name">Karan M., 22 · <span>Bangalore · Engineer</span></span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="cta reveal">
+  <div class="cta-scarcity">🔥 Launch Price · Limited Time</div>
+
+  <h2 class="cta-heading">Abhi<br><span>Shuru Karo.</span><br>Kal Se Nahi.</h2>
+
+  <p class="cta-body">
+    Tu pehle bhi "kal se" bola hai.<br>
+    <strong>Aaj woh cycle todo.</strong><br><br>
+    ₹199 mein — ek complete 30-din ka system jo tujhe distracted insaan se disciplined warrior bana dega. <strong>Koi excuse nahi. Koi wait nahi.</strong><br><br>
+    <em>Ek decision — hamesha ke liye alag.</em>
+  </p>
+
+  <div class="price-box">
+    <div class="pb-row">
+      <div class="pb-price"><sup>₹</sup>199</div>
+      <div class="pb-old">₹499</div>
+    </div>
+    <div class="pb-save">⚡ 60% Off · Launch Price · Sirf Abhi</div>
+    <ul class="pb-includes">
+      <li class="pbi-item"><span class="pbi-check">✓</span> 30 Daily Battle Cards — Complete Content</li>
+      <li class="pbi-item"><span class="pbi-check">✓</span> Auto Monk Score Formula</li>
+      <li class="pbi-item"><span class="pbi-check">✓</span> Damage Penalty System (-50 NoFap)</li>
+      <li class="pbi-item"><span class="pbi-check">✓</span> Urge Control Emergency Guide</li>
+      <li class="pbi-item"><span class="pbi-check">✓</span> Identity-Based Language System</li>
+      <li class="pbi-item"><span class="pbi-check">✓</span> Rank System 💀→👑</li>
+      <li class="pbi-item"><span class="pbi-check">✓</span> 1-Click Notion Duplicate</li>
+      <li class="pbi-item"><span class="pbi-check">✓</span> Mobile Optimized · Lifetime Access</li>
+    </ul>
+  </div>
+
+  <a href="https://superprofile.bio/vp/⚔️-monk-mode-os-—-30-day-reset" target="_blank" class="buy-btn">⚔️ LO ABHI — MONK MODE SHURU KARO</a>
+  <p class="btn-sub">Notion account chahiye (free) · 1 click duplicate · Turant access</p>
+
+  <div class="guarantee">
+    <span class="g-icon">🛡️</span>
+    <p class="g-text"><strong>100% Satisfaction.</strong> Agar 7 din mein feel nahi aaya ki yeh different hai — full refund. Koi sawal nahi. Lekin honestly? <strong>Ek bhi return nahi aaya abhi tak.</strong></p>
+  </div>
+</section>
+
+<!-- ══ MANIFESTO ══ -->
+<div class="manifesto reveal">
+  <div class="mani-title">MONK MODE OS</div>
+  <p class="mani-quote">
+    "Yeh productivity app nahi hai.<br>
+    Yeh <em>digital self-reconstruction</em> hai.<br>
+    Tu either level up karta hai aaj —<br>
+    ya <em>control khota rehta hai.</em>"
+  </p>
+  <div class="mani-sig">⚔️ Monk Mode OS · Built For Warriors</div>
+</div>
+
+</div><!-- /wrap -->
+
+<!-- ══ STICKY BAR ══ -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-inner">
+    <div class="sticky-price-wrap">
+      <span class="sticky-price"><sup>₹</sup>199</span>
+      <span class="sticky-old">₹499</span>
+    </div>
+    <div class="sticky-divider"></div>
+    <a href="https://superprofile.bio/vp/⚔️-monk-mode-os-—-30-day-reset" target="_blank" class="sticky-btn">
+      <span class="sticky-btn-icon">⚔️</span>
+      ABHI LO — MONK MODE
+    </a>
+  </div>
+</div>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+reveals.forEach(el => observer.observe(el));
+
+// Sticky bar — show after scrolling past hero
+const stickyBar = document.getElementById('stickyBar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 300) {
+    stickyBar.classList.add('show');
+  } else {
+    stickyBar.classList.remove('show');
+  }
+}, { passive: true });
+</script>
+
+</body>
+</html>
